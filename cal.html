@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <link rel="icon" href="My project.png" type="image/icon type">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+      body {
+        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        color: #333;
+      }
+      
+      h1 {
+        text-align: center;
+      }
+      
+      #calculator {
+        width: 350px;
+        margin: 0 auto;
+        background-color: #ddd;
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 16px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      #output {
+        width: 100%;
+        height: 60px;
+        font-size: 36px;
+        text-align: right;
+        border: none;
+        background-color: #fff;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      .row {
+        display: flex;
+      }
+      
+      .button {
+        flex: 1;
+        font-size: 24px;
+        background-color: #eee;
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 16px;
+        margin: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .button:hover {
+        background-color: #ccc;
+      }
+      
+      .button:active {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) inset;
+      }
+      
+      .button.operator {
+        background-color:  #4f98ca;
+        color: #fff;
+        border-color: #f8a71b;
+      }
+      
+      .button.operator:hover {
+        background-color: #f7b83e;
+      }
+      
+      .button.operator:active {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) inset;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="My project.png" alt="Logo" width="50" height="25" class="d-inline-block align-text-top">
+        Simp Cal
+      </a>
+    </div>
+  </nav>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Simp Cal</h1>
+      <p class="lead text-muted">A calculator is a device that performs arithmetic operations on numbers. Basic calculators can do only addition, subtraction, multiplication and division mathematical calculations.</p>
+      <p>
+        <a href="index.html" class="btn btn-warning my-2">Home Page</a>
+        
+      </p>
+    </div>
+  </section>
+    <h1>Calculator</h1>
+    <div id="calculator">
+      <input id="output" type="text" value="0" disabled>
+      <div class="row">
+        <button class="button" onclick="appendDigit('7')">7</button>
+        <button class="button" onclick="appendDigit('8')">8</button>
+        <button class="button" onclick="appendDigit('9')">9</button>
+        <button class="button operator" onclick="operate('/')">÷</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="appendDigit('4')">4</button>
+        <button class="button" onclick="appendDigit('5')">5</button>
+        <button class="button" onclick="appendDigit('6')">6</button>
+        <button class="button operator" onclick="operate('*')">x</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="appendDigit('1')">1</button>
+        <button class="button" onclick="appendDigit('2')">2</button>
+        <button class="button" onclick="appendDigit('3')">3</button>
+        <button class="button operator" onclick="operate('+')">+</button>
+    </div>
+    <div class="row">
+      <button class="button" onclick="appendDigit('0')">0</button>
+      <button class="button" onclick="appendDigit('.')">.</button>
+      <button class="button operator" onclick="operate('-')">-</button>
+     
+    </div>
+    <div class="row">
+      <button class="button" onclick="clearOutput()">AC</button>
+      <button class="button" onclick="backspace()">C</button>
+      <button class="button operator" onclick="calculate()">=</button>
+    </div>
+  </div>
+  
+  <script>
+    let output = document.getElementById('output');
+    let input = '';
+    
+    function appendDigit(digit) {
+      if (input === '' && digit === '.') {
+        input = '0.';
+      } else if (digit === '.' && input.includes('.')) {
+        return;
+      } else {
+        input += digit;
+      }
+      output.value = input;
+    }
+    
+    function operate(operator) {
+      if (input === '') {
+        return;
+      }
+      input += operator;
+      output.value = input;
+    }
+    
+    function clearOutput() {
+      input = '';
+      output.value = '0';
+    }
+    
+    function backspace() {
+      input = input.slice(0, -1);
+      output.value = input === '' ? '0' : input;
+    }
+    
+    function calculate() {
+      let result = eval(input);
+      input = result.toString();
+      output.value = input;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head><link rel="icon" href="My project.png" type="image/icon type">
+    <title>Scientific Calculator</title> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f2f2f2;
+      }
+
+      #calculator {
+        width: 320px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .button {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        font-size: 24px;
+        color: #fff;
+        border: none;
+        background: linear-gradient(to bottom right, #4f98ca, #00d4ff);
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .button:hover {
+        background: linear-gradient(to bottom right, #3a82b3, #00b8e6);
+      }
+
+      #output {
+        width: 100%;
+        height:100px;
+        font-size: 32px;
+        border: none;
+        background-color: transparent;
+        text-align: right;
+        padding-right: 10px;
+        animation: slideIn 0.5s forwards;
+        opacity: 0;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Scientific Calculator</h1>
+          <p class="lead text-muted">What do you use a scientific calculator for?
+            Unlike basic calculators that can only handle smaller values, a scientific calculator can handle numbers on a much vaster scale, which can be useful when it comes to collecting data or working as a physicist or chemist. It can also calculate negative scientific notation.</p>
+          <p>
+            <a href="index.html" class="btn btn-warning my-2">Home Page</a>
+            
+          </p>
+        </div>
+      </section>
+
+
+    <div id="calculator">
+      <input type="text" id="output" value="0" readonly>
+      <div class="row">
+        <button class="button" onclick="clearOutput()">C</button>
+        <button class="button" onclick="toggleSign()">+/-</button>
+        <button class="button" onclick="backspace()">←</button>
+        <button class="button" onclick="operate('/')">÷</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="appendDigit('7')">7</button>
+        <button class="button" onclick="appendDigit('8')">8</button>
+        <button class="button" onclick="appendDigit('9')">9</button>
+        <button class="button" onclick="operate('*')">×</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="appendDigit('4')">4</button>
+        <button class="button" onclick="appendDigit('5')">5</button>
+        <button class="button" onclick="appendDigit('6')">6</button>
+        <button class="button" onclick="operate('-')">-</button>
+      </div>
+      <div class="row">
+        <button class="button" onclick="appendDigit('1')">1</button>
+        <button class="button" onclick="appendDigit('2')">2</button>
+        <button class="button" onclick="appendDigit('3')">3</button>
+        <button class="button" onclick="operate('+')">+</button>
+        </div>
+        <div class="row">
+        <button class="button" onclick="appendFunction('Math.sqrt(')">√</button>
+        <button class="button" onclick="appendFunction('Math.pow(')">x<sup>y</sup></button>
+        <button class="button" onclick="appendFunction('Math.sin(')">sin</button>
+        <button class="button" onclick="appendFunction('Math.cos(')">cos</button>
+        </div>
+        <div class="row">
+        <button class="button" onclick="appendDigit('0')">0</button>
+        <button class="button" onclick="appendDecimal()">.</button>
+        <button class="button" onclick="calculate()">=</button>
+        <button class="button" onclick="appendFunction('Math.atan(')">tan<sup>-1</sup></button>
+        </div>
+        <div class="row">
+        <button class="button" onclick="appendFunction('Math.log(')">log</button>
+        </div>
+        </div>
+        <script>
+        let output = document.getElementById('output');
+        function appendDigit(digit) {
+    if (output.value === '0') {
+      output.value = digit;
+    } else {
+      output.value += digit;
+    }
+  }
+
+  function appendDecimal() {
+    if (!output.value.includes('.')) {
+      output.value += '.';
+    }
+  }
+
+  function appendFunction(func) {
+    output.value = func + output.value + ')';
+  }
+
+  function operate(operator) {
+    if (output.value.slice(-1) === '.') {
+      output.value = output.value.slice(0, -1);
+    }
+    output.value += operator;
+  }
+
+  function clearOutput() {
+    output.value = '0';
+  }
+
+  function toggleSign() {
+    output.value = output.value.startsWith('-') ? output.value.slice(1) : '-' + output.value;
+  }
+
+  function backspace() {
+    if (output.value.length > 1) {
+      output.value = output.value.slice(0, -1);
+    } else {
+      output.value = '0';
+    }
+  }
+
+  function calculate() {
+    output.value = eval(output.value);
+  }
+</script>  </body>
+</html>
